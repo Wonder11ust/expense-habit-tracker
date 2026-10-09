@@ -1,17 +1,21 @@
-import { IsDate, IsDecimal, IsOptional, IsString } from "class-validator";
+import { Transform } from "class-transformer";
+import { IsDate, IsDecimal, IsNumber, IsOptional, IsString } from "class-validator";
 
 export class CreateTransactionDto {
     @IsString()
-    userId: string;
-    @IsString()
     categoryId: string;
-    @IsDecimal()
+
+    @IsNumber()
     amount: number;
+
     @IsString()
     type:string;
+
     @IsString()
     @IsOptional()
     description:string;
+
+    @Transform(({value}) => new Date(value))
     @IsDate()
     transactionDate:Date;
 
